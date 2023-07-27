@@ -13,24 +13,23 @@ function imageMode(color){
     image3.src = `img/undraw_feeling_proud_${color}.svg`;
 }
 
+function switchDarkLightMode(isDark) {
+    nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
+    textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
+    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    isDark ? toggleIcon.children[1].classList.replace('fa-sun' , 'fa-moon-stars') : 
+        toggleIcon.children[1].classList.replace('fa-moon-stars' , 'fa-sun');
+    isDark ? imageMode('dark') : imageMode('light'); 
+}
 
 //Darkmode Style
 function darkmode() {
-    nav.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    toggleIcon.children[0].textContent = 'Dark Mode';
-    toggleIcon.children[1].classList.replace('fa-sun' , 'fa-moon-stars');
-    imageMode('dark');
-    
+    switchDarkLightMode(true);
 }
 
 //LightMod Style
 function lightMode() {
-    nav.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    toggleIcon.children[0].textContent = 'Light Mode';
-    toggleIcon.children[1].classList.replace('fa-moon-stars' , 'fa-sun');
-    imageMode('light');
+    switchDarkLightMode(false);
 }
 
 //Switch the theme dynamically
@@ -55,6 +54,6 @@ if (currentTheme) {
     document.documentElement.setAttribute("data-theme", currentTheme);
     if (currentTheme === 'dark') {
         toggleSwitch.checked = true;  
-        darkmode();      
+        switchDarkLightMode(true);     
     }
 }
